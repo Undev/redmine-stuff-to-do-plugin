@@ -29,12 +29,6 @@ describe Issue, 'update_next_issues' do
     StuffToDo.stub!(:remove_stale_assignments)
   end
   
-  it 'should reload the issue to clear the cache holding its status' do
-    @issue.should_receive(:reload)
-    @issue.stub!(:closed?).and_return(true)
-    @issue.update_next_issues
-  end
-  
   it 'should call StuffToDo#remove_associations_to if the issue is closed' do
     @issue.should_receive(:closed?).and_return(true)
     StuffToDo.should_receive(:remove_associations_to).with(@issue)

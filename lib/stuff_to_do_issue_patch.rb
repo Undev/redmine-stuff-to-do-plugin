@@ -48,10 +48,10 @@ module StuffToDoIssuePatch
     # * When an issue is reassigned, any previous (stale) NextIssues will
     #   be removed
     def update_next_issues
-      self.reload
-      StuffToDo.remove_associations_to(self) if self.closed?
-      StuffToDo.remove_stale_assignments(self)
-      return true
+      this_issue = Issue.find(id)
+      StuffToDo.remove_associations_to(this_issue) if this_issue.closed?
+      StuffToDo.remove_stale_assignments(this_issue)
+      true
     end
   end    
 end
