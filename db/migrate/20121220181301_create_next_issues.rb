@@ -4,10 +4,10 @@ class CreateNextIssues < ActiveRecord::Migration
       t.column :issue_id, :integer
       t.column :user_id, :integer
       t.column :position, :integer
-    end
+    end unless table_exists? :next_issues
   end
   
   def self.down
-    drop_table :next_issues
+    drop_table :next_issues if table_exists? :next_issues
   end
 end

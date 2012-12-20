@@ -1,6 +1,6 @@
 class RemoveIdFromTimeGridIssuesUsers < ActiveRecord::Migration
   def self.up
-    remove_column :time_grid_issues_users, :id
+    remove_column :time_grid_issues_users, :id if column_exists? :time_grid_issues_users, :id
   end
   
   def self.down
