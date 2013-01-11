@@ -2,8 +2,8 @@ require File.dirname(__FILE__) + '/../spec_helper'
 
 describe StuffToDoController, '#save_time_entries' do
   include Redmine::I18n
-  integrate_views
-  
+  render_views
+
   before(:each) do
     @current_user = mock_model(User, :admin? => false, :logged? => true, :language => :en, :memberships => [], :anonymous? => false, :name => "A Test User", :projects => Project, :allowed_to? => true)
     @current_user.stub!(:time_grid_issues).and_return(Issue)
@@ -38,10 +38,10 @@ describe StuffToDoController, '#save_time_entries' do
     before(:each) do
       controller.stub!(:save_time_entry_from_time_grid).and_return(true)
     end
-    
+
     it_should_behave_like 'get_time_grid_data'
   end
-  
+
   describe 'with a failed save' do
     it 'should render the error messages as a string' do
       do_request

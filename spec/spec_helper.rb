@@ -3,19 +3,19 @@
 ENV["RAILS_ENV"] = "test"
 
 # Allows loading of an environment config based on the environment
-redmine_root = ENV["REDMINE_ROOT"] || File.dirname(__FILE__) + "/../../../.."
+redmine_root = ENV["REDMINE_ROOT"] || File.dirname(__FILE__) + "/../../.."
 require File.expand_path(redmine_root + "/config/environment")
-require 'spec'
-require 'spec/rails'
-require 'ruby-debug'
+require 'rspec'
+require 'rspec/rails'
+# require 'ruby-debug'
 
-Spec::Runner.configure do |config|
+RSpec.configure do |config|
   # If you're not using ActiveRecord you should remove these
   # lines, delete config/database.yml and disable :active_record
   # in your config/boot.rb
   config.use_transactional_fixtures = true
   config.use_instantiated_fixtures  = false
-  config.fixture_path = RAILS_ROOT + '/spec/fixtures/'
+  config.fixture_path = File.expand_path('/spec/fixtures', __FILE__)
 
   # == Fixtures
   #
@@ -58,7 +58,7 @@ module AssociationMatcher
       @field = field
       @association_type = association_type
     end
-    
+
     def matches?(model)
       @model=model
       association = @model.reflect_on_association(@field)
@@ -66,7 +66,7 @@ module AssociationMatcher
 
       return association.name == @field && association.macro == @association_type
     end
-    
+
     def failure_message
       "expected <#{@model.name}> to have a #{@association_type} association for #{@field}"
     end
@@ -83,7 +83,7 @@ end
 
 include AssociationMatcher
 
-describe 'get_time_grid_data', :shared => true do
+shared_examples 'get_time_grid_data' do
   it 'should set @date for the view' do
     do_request
     assigns[:date].should_not be_nil
@@ -122,7 +122,7 @@ describe 'get_time_grid_data', :shared => true do
     Issue.should_receive(:all).
       with(:order => "#{Issue.table_name}.id ASC").
       and_return(issues)
-                                                          
+
     do_request
   end
 

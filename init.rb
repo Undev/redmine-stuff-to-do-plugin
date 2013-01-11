@@ -8,7 +8,7 @@ require 'redmine'
 #end
 
 # Patches to Ruby, oh my
-require 'stuff_to_do_array_patch'
+#require 'stuff_to_do_array_patch'
 
 # Patches to the Redmine core.
 Rails.configuration.to_prepare do

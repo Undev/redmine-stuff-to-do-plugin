@@ -8,7 +8,7 @@ RedminePluginSupport::Base.setup do |plugin|
   plugin.default_task = [:spec, :features]
   plugin.tasks = [:doc, :release, :clean, :test, :db, :spec]
   # TODO: gem not getting this automaticly
-  plugin.redmine_root = File.expand_path(File.dirname(__FILE__) + '/../../../')
+  plugin.redmine_root = File.expand_path(File.dirname(__FILE__) + '/../../')
 end
 
 begin
