@@ -14,8 +14,8 @@ class StuffToDo < ActiveRecord::Base
   belongs_to :stuff, :polymorphic => true
   belongs_to :user
   acts_as_list :scope => :user
-  
-  named_scope :doing_now, lambda { |user|
+
+  scope :doing_now, lambda { |user|
     {
       :conditions => { :user_id => user.id },
       :limit => 5,
@@ -25,12 +25,12 @@ class StuffToDo < ActiveRecord::Base
 
   # TODO: Rails bug
   #
-  # ActiveRecord ignores :offset if :limit isn't added also.  But since we 
+  # ActiveRecord ignores :offset if :limit isn't added also.  But since we
   # want all the records, we need to provide a limit that will include everything
   #
   # http://dev.rubyonrails.org/ticket/7257
   #
-  named_scope :recommended, lambda { |user|
+  scope :recommended, lambda { |user|
     {
       :conditions => { :user_id => user.id },
       :limit => self.count,
@@ -38,7 +38,7 @@ class StuffToDo < ActiveRecord::Base
       :order => 'position ASC'
     }
   }
-  
+
   # Filters the issues that are available to be added for a user.
   #
   # A filter can be a record:
@@ -60,7 +60,7 @@ class StuffToDo < ActiveRecord::Base
     end
 
     stuff_to_do = StuffToDo.find(:all, :conditions => { :user_id => user.id }).collect(&:stuff)
-    
+
     return potential_stuff_to_do - stuff_to_do
   end
 
@@ -91,10 +91,10 @@ class StuffToDo < ActiveRecord::Base
         StuffToDoMailer.deliver_recommended_below_threshold(user, count)
       end
     end
-    
+
     return true
   end
-  
+
   # Destroys all +NextIssues+ on an +issue+ that are not the assigned to user
   def self.remove_stale_assignments(issue)
     if issue.assigned_to_id.nil?
@@ -105,7 +105,7 @@ class StuffToDo < ActiveRecord::Base
                              issue.assigned_to_id])
     end
   end
-  
+
   # Reorders the list of StuffToDo items for +user+ to be in the order of
   # +ids+.  New StuffToDos will be created if needed and old
   # StuffToDos will be removed if they are unassigned.
@@ -159,13 +159,13 @@ class StuffToDo < ActiveRecord::Base
         stuff_to_do.user_id = user.id
 
         stuff_to_do.save # TODO: Check return
-        
+
         # Have to resave next_issue since acts_as_list automatically moves it
         # to the bottom on create
         stuff_to_do.insert_at(position + 1)  # acts_as_list is 1 based
       end
     end
-  
+
   end
 
   # Destroys saved records that are +ids_found_in_database+ but are
@@ -195,7 +195,7 @@ class StuffToDo < ActiveRecord::Base
     conditions_builder = ARCondition.new(["#{IssueStatus.table_name}.is_closed = ?", false ])
     conditions_builder.add(["#{Project.table_name}.status = ?", Project::STATUS_ACTIVE])
 
-    case 
+    case
     when filter_by.is_a?(User)
       conditions_builder.add(["assigned_to_id = ?", filter_by.id])
     when filter_by.is_a?(IssueStatus), filter_by.is_a?(Enumeration)
