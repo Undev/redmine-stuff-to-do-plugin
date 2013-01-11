@@ -5,7 +5,7 @@ module StuffToDoIssuePatch
 
     base.send(:include, InstanceMethods)
 
-    # Same as typing in the class 
+    # Same as typing in the class
     base.class_eval do
       unloadable # Send unloadable so it will not be unloaded in development
 
@@ -17,7 +17,7 @@ module StuffToDoIssuePatch
         includes(:time_entries)
           .where("#{TimeEntry.table_name}.user_id = (?)", user_id)
       }
-      
+
       scope :with_time_entries_within_date, lambda {|date_from, date_to,|
         includes(:time_entries)
           .where("#{TimeEntry.table_name}.spent_on > (:from) AND #{TimeEntry.table_name}.spent_on < (:to)",
@@ -26,10 +26,10 @@ module StuffToDoIssuePatch
     end
 
   end
-  
+
   module ClassMethods
   end
-  
+
   module InstanceMethods
     # This will update all NextIssues assigned to the Issue
     #
@@ -38,10 +38,9 @@ module StuffToDoIssuePatch
     # * When an issue is reassigned, any previous (stale) NextIssues will
     #   be removed
     def update_next_issues
-      this_issue = Issue.find(id)
-      StuffToDo.remove_associations_to(this_issue) if this_issue.closed?
-      StuffToDo.remove_stale_assignments(this_issue)
+      StuffToDo.remove_associations_to(self) if self.closed?
+      StuffToDo.remove_stale_assignments(self)
       true
     end
-  end    
+  end
 end

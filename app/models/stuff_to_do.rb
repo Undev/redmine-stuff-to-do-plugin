@@ -113,7 +113,8 @@ class StuffToDo < ActiveRecord::Base
   # Project based ids need to be prefixed with +project+
   def self.reorder_list(user, ids)
     ids ||= []
-    id_position_mapping = ids.to_hash
+    id_position_mapping = {}
+    ids.each_with_index { |e, i| id_position_mapping[i] = e }
 
     issue_ids = {}
     project_ids = {}
@@ -188,7 +189,7 @@ class StuffToDo < ActiveRecord::Base
   end
 
   def self.use_setting
-    USE.index(Setting.plugin_stuff_to_do_plugin['use_as_stuff_to_do'])
+    USE[Setting.plugin_stuff_to_do_plugin['use_as_stuff_to_do']]
   end
 
   def self.conditions_for_available(filter_by)

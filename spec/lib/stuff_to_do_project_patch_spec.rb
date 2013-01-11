@@ -8,16 +8,8 @@ end
 
 describe Project, 'after_save' do
   it 'should include update_stuff_to_do' do
-    callbacks = Project.after_save
-    callbacks.should_not be_nil
-    
-    callbacks.should satisfy do |callbacks|
-      found = false
-      callbacks.each do |callback|
-        found = true if callback.method == :update_stuff_to_do
-      end
-      found
-    end
+    callbacks = Project._save_callbacks.select { |cb| cb.kind.eql?(:after) }.collect(&:filter)
+    callbacks.should include(:update_stuff_to_do)
   end
 end
 
@@ -30,7 +22,7 @@ describe Project, 'update_stuff_to_do' do
     @project.status = Project::STATUS_ACTIVE
     @project.is_public = true
   end
-  
+
   it 'should call StuffToDo#remove_associations_to if the project is not active' do
     @project.status = Project::STATUS_ARCHIVED
     StuffToDo.should_receive(:remove_associations_to).with(@project)

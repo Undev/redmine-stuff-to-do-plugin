@@ -10,9 +10,10 @@ describe StuffToDoMailer, 'recommended_below_threshold' do
     @user = mock_model(User, :name => "Example User", :id => 100)
     @next_item_count = 2
 
-    @mail = StuffToDoMailer.create_recommended_below_threshold(@user, @next_item_count)
+    StuffToDoMailer.recommended_below_threshold(@user, @next_item_count).deliver
+    @mail = last_email
   end
-  
+
   it 'should send to the users specified in the Settings' do
     @mail.bcc.should have(2).things
     @mail.bcc.should include("user1@example.com")
@@ -22,7 +23,7 @@ describe StuffToDoMailer, 'recommended_below_threshold' do
   it 'should use the subject of "Whats Recommended is below the threshold"' do
     @mail.subject.should match(/What's Recommended is below the threshold/i)
   end
-  
+
   it 'should have the user name in the body' do
     @mail.encoded.should match(/#{ @user.name }/)
   end
@@ -34,9 +35,24 @@ describe StuffToDoMailer, 'recommended_below_threshold' do
   it 'should say the number of StuffToDos for the user in the body' do
     @mail.encoded.should match(/only 2 recommended items left/)
   end
-  
+
   it 'should have a link to the users stuff_to_do page in the body' do
-    # '=3D' is the encoded version of '='
-    @mail.encoded.should include("https://example.com/stuff_to_do?user_id=3D#{@user.id}")
+    html_part.body.encoded.should include("https://example.com/stuff_to_do?user_id=#{@user.id}")
+  end
+
+  private
+
+  def last_email
+    mail = ActionMailer::Base.deliveries.last
+    assert_not_nil mail
+    mail
+  end
+
+  def text_part
+    last_email.parts.detect {|part| part.content_type.include?('text/plain')}
+  end
+
+  def html_part
+    last_email.parts.detect {|part| part.content_type.include?('text/html')}
   end
 end

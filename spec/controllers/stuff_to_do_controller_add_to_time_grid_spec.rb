@@ -5,7 +5,8 @@ describe StuffToDoController, '#add_to_time_grid' do
   render_views
 
   before(:each) do
-    @current_user = mock_model(User, :admin? => false, :logged? => true, :language => :en, :memberships => [], :anonymous? => false, :name => "A Test User", :projects => Project)
+    @current_user = mock_model(User, :admin? => false, :logged? => true, :language => :en, :memberships => [],
+      :anonymous? => false, :name => "A Test User", :projects => Project, :projects_by_role => {})
     @current_user.stub!(:time_grid_issues).and_return(Issue)
     User.stub!(:current).and_return(@current_user)
   end

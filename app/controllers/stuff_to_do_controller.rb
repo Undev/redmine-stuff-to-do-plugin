@@ -7,16 +7,16 @@ class StuffToDoController < ApplicationController
   helper :stuff_to_do
   helper :custom_fields
   helper :timelog
-  
+
   def index
     @doing_now = StuffToDo.doing_now(@user)
     @recommended = StuffToDo.recommended(@user)
     @available = StuffToDo.available(@user, default_filters )
-    
+
     @users = User.active
     @filters = filters_for_view
   end
-  
+
   def reorder
     StuffToDo.reorder_list(@user, params[:stuff])
     @doing_now = StuffToDo.doing_now(@user)
@@ -28,7 +28,7 @@ class StuffToDoController < ApplicationController
       format.js { render :partial => 'panes', :layout => false}
     end
   end
-  
+
   def available_issues
     @available = StuffToDo.available(@user, get_filters)
 
@@ -37,7 +37,7 @@ class StuffToDoController < ApplicationController
       format.js { render :partial => 'right_panes', :layout => false}
     end
   end
-  
+
   def time_grid
     respond_to do |format|
       format.html { redirect_to :action => 'index'}
@@ -73,7 +73,7 @@ class StuffToDoController < ApplicationController
       if save_time_entry_from_time_grid(@time_entry)
         flash.now[:time_grid_notice] = l(:notice_successful_update)
         get_time_grid # after saving in order to get the updated data
-        
+
         format.js { time_grid }
       else
         format.js { render :text => @time_entry.errors.full_messages.join(', '), :status => 403, :layout => false }
@@ -82,10 +82,10 @@ class StuffToDoController < ApplicationController
   end
 
   private
-  
+
   def get_user
     render_403 unless User.current.logged?
-    
+
     if params[:user_id] && params[:user_id] != User.current.id.to_s
       if User.current.admin?
         @user = User.find(params[:user_id])
@@ -93,10 +93,10 @@ class StuffToDoController < ApplicationController
         render_403
       end
     else
-      @user = User.current  
+      @user = User.current
     end
   end
-  
+
   def filters_for_view
     StuffToDoFilter.new
   end

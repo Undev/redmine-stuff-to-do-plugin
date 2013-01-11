@@ -8,16 +8,8 @@ end
 
 describe Issue, 'after_save' do
   it 'should include update_next_issues' do
-    callbacks = Issue.after_save
-    callbacks.should_not be_nil
-    
-    callbacks.should satisfy do |callbacks|
-      found = false
-      callbacks.each do |callback|
-        found = true if callback.method == :update_next_issues
-      end
-      found
-    end
+    callbacks = Issue._save_callbacks.select { |cb| cb.kind.eql?(:after) }.collect(&:filter)
+    callbacks.should include(:update_next_issues)
   end
 end
 
@@ -28,7 +20,7 @@ describe Issue, 'update_next_issues' do
     @issue.stub!(:closed?).and_return(false)
     StuffToDo.stub!(:remove_stale_assignments)
   end
-  
+
   it 'should call StuffToDo#remove_associations_to if the issue is closed' do
     @issue.should_receive(:closed?).and_return(true)
     StuffToDo.should_receive(:remove_associations_to).with(@issue)
@@ -46,7 +38,7 @@ describe Issue, 'update_next_issues' do
 
     @issue.update_next_issues.should be_true
   end
-  
+
   it 'should call StuffToDo#remove_stale_assignments' do
     StuffToDo.should_receive(:remove_stale_assignments).with(@issue)
     @issue.update_next_issues
