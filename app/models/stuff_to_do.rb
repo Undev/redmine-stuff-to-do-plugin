@@ -189,7 +189,7 @@ class StuffToDo < ActiveRecord::Base
   end
 
   def self.use_setting
-    USE[Setting.plugin_stuff_to_do_plugin['use_as_stuff_to_do']]
+    USE.key(Setting.plugin_stuff_to_do_plugin['use_as_stuff_to_do'])
   end
 
   def self.conditions_for_available(filter_by)
