@@ -1,6 +1,6 @@
 # Compatibiliy class used by migrations
 class NextIssue < ActiveRecord::Base
-  set_table_name 'next_issues'
+  self.table_name = 'next_issues'
 end
 
 class ConvertNextIssuesToStuffToDos < ActiveRecord::Migration
@@ -18,7 +18,7 @@ class ConvertNextIssuesToStuffToDos < ActiveRecord::Migration
       drop_table :next_issues
     end
   end
-  
+
   def self.down
     if table_exists? :next_issues
       StuffToDo.find_all_by_stuff_type('Issue').each do |stuff_to_do|
