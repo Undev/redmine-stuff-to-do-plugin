@@ -31,11 +31,11 @@ end
 
 Redmine::Plugin.register :stuff_to_do_plugin do
   name 'Stuff To Do Plugin'
-  author 'Eric Davis'
-  url 'https://projects.littlestreamsoftware.com/projects/show/redmine-stuff-to-do'
-  author_url 'http://www.littlestreamsoftware.com'
+  author 'Eric Davis, Undev'
+  url 'https://github.com/Undev/redmine-stuff-to-do-plugin'
+  author_url 'https://github.com/Undev'
   description "The Stuff To Do plugin allows a user to order and prioritize the issues they are doing into a specific order. It will also allow other privilged users to reorder the user's workload."
-  version '0.5.0'
+  version '0.5.1'
 
   requires_redmine :version_or_higher => '2.1.0'
 
