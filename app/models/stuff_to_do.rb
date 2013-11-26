@@ -53,13 +53,13 @@ class StuffToDo < ActiveRecord::Base
     if filter.is_a?(Project)
       potential_stuff_to_do = active_and_visible_projects.sort
     else
-      potential_stuff_to_do = Issue.find(:all,
-                                         :include => [:status, :priority, :project],
-                                         :conditions => conditions_for_available(filter),
-                                         :order => "#{Issue.table_name}.created_on DESC")
+      potential_stuff_to_do = Issue.
+          includes([:status, :priority, :project]).
+          where(conditions_for_available(filter)).
+          order("#{Issue.table_name}.updated_on DESC")
     end
 
-    stuff_to_do = StuffToDo.find(:all, :conditions => { :user_id => user.id }).collect(&:stuff)
+    stuff_to_do = StuffToDo.where(:user_id => user.id).collect(&:stuff)
 
     return potential_stuff_to_do - stuff_to_do
   end
