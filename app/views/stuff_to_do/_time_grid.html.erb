@@ -28,7 +28,7 @@
   </thead>
   <tbody>
     <% @issues.each do |issue| %>
-    <% content_tag_for(:tr, issue) do %>
+    <%= content_tag_for(:tr, issue) do %>
       <td class="time-grid-project">
         <%= link_to(h(issue.project), :controller => 'projects', :action => 'show', :id => issue.project) %>
       </td>
@@ -87,7 +87,7 @@
 <p><%= f.text_field :issue_id, :required => true, :size => 6 %> <em><%= h("#{@time_entry.issue.tracker.name} ##{@time_entry.issue.id}: #{@time_entry.issue.subject}") if @time_entry.issue %></em></p>
 <p>
   <%= f.text_field :spent_on, :size => 10, :required => true, :id => 'time_entry__core'  %>
-  <% include_calendar_headers_tags %>
+  <%= include_calendar_headers_tags %>
   <%= image_tag("calendar.png", {:id => "time_entry__core_trigger",:class => "calendar-trigger"}) -%>
 </p>
 <p><%= f.text_field :hours, :size => 6, :required => true %></p>
