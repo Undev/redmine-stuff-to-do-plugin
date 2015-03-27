@@ -1,4 +1,4 @@
-# StuffToDo relates a user to another object at a specific postition
+# StuffToDo relates a user to another object at a specific position
 # in a list.
 #
 # Supported objects:
