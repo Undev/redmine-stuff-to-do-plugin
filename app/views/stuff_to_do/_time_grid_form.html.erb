@@ -6,11 +6,11 @@
 </fieldset>
 
 <p style="float:right; margin:0px;">
-<%= link_to("&#171; #{l(:label_previous)} #{l(:label_week).downcase}",
+<%= link_to("&#171; #{l(:label_previous)} #{l(:label_week).downcase}".html_safe,
                        {:update => "time-grid", :url => { :action => 'time_grid', :date => @date - 7 }},
                        {:href => url_for(:action => 'time_grid', :date => @date - 7)})
                        %> |
-<%= link_to("#{l(:label_next)} #{l(:label_week).downcase}  &#187;",
+<%= link_to("#{l(:label_next)} #{l(:label_week).downcase}  &#187;".html_safe,
                        {:update => "time-grid", :url => { :action => 'time_grid', :date => @date + 7 }},
                        {:href => url_for(:action => 'time_grid', :date => @date + 7)})
                        %>
