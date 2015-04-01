@@ -1,22 +1,17 @@
 # Redmine Stuff To Do Plugin
 
-The Stuff To Do plugin allows a user to order and prioritize the issues and projects they are doing into a specific order. It will also allow other privileged users to reorder the user's workload.
+This plugin allows Redmine users to prioritize tasks and arrange the assigned issues and projects in a specific order. It also allows administrators and managers to manage other users' workload.
 
-The initial autor is []().
+The initial author is [Eric Davis](https://github.com/edavis10).
 
-== Features
+This plugin provides a number of useful features for Redmine issue management:
 
-* Sorting and prioritizing of cross-project To Do lists
-* Easy to use drag and drop interface
-* Editing other user lists for Administrators
-* Filtering of issues based on user, priority, or status
-* Notification emails based on low workload counts
-* Drag and drop time logging using the Time Grid
-
-== Getting the plugin
-
-A copy of the plugin can be downloaded from {Little Stream Software}[https://projects.littlestreamsoftware.com/projects/redmine-stuff-to-do/files] or from {GitHub}[http://github.com/edavis10/redmine-stuff-to-do]
-
+* Sorting and prioritizing of cross-project to-do lists
+* Editing other users' lists for administrators
+* Filtering of issues based on user, priority, status, or project
+* Notification emails based on low workload
+* Easy-to-use drag-and-drop interface
+* Drag-and-drop time logging using the time grid
 
 ## Installation
 
@@ -41,52 +36,41 @@ A copy of the plugin can be downloaded from {Little Stream Software}[https://pro
 
 Now you should be able to see the plugin in **Administration > Plugins**.
 
-
 ## Usage
-
-To configure the plugin, go to **Administration > Plugins** and click **Configure**.
 
 The plugin adds the **Stuff To Do** link to the top menu in Redmine.
 
-Clicking the **Stuff To Do** link opens the page with three panes that can be sorted:
+The **Stuff To Do** link leads to a page with three panes:    
+![stuff to do](stuff_to_do_1.png)
 
 ### What I'm doing now
 
-This pane lists the next 5 items a user is supposed to be working on.  These items should be the *most* important things assigned to the user.  As the user closes an item, the items lower in the list will rise up and fill in this pane.  Items are closed by either closing the issue (Issues) or archiving a project (Project)
+This pane lists 5 items a user is supposed to be working on. These should be the most important issues assigned to the user. As the user closes an issue (by specifying the **Closed** status or archiving a project), the next item is automatically moved to the top of the list in this pane.
 
 ### What's recommended to do next
 
-This pane lists extra items for the user.  These items are used as overflow for the What I'm doing now.
+This pane lists extra issues used as overflow for the **What I'm doing now** pane.
 
 ### What's available
 
-This pane lists all the open issues that are assigned to the user or the projects visible to the user.  They are the pool of things that a user can draw on as they work.
+This pane lists all the open issues assigned to the user or the projects visible to the user.
 
-### Workflow
+The standard workflow for this plugin is as follows:  
+![stuff to do](stuff_to_do_2.png)
 
-The standard workflow for this plugin is as follows:
+1. A user drags items from the **What's available** pane to the **What I'm doing now** and **What's recommended to do next** panes
+2. The user prioritizes and sorts the items in the **What I'm doing now** and **What's recommended to do next** panes
+3. The user works on the first item (at the top of the **What I'm doing now** list)
+4. After the first item is complete (or blocked), the user proceeds to the second item
 
-1. A user will drag items from the What's Available pane to the What I'm doing now and What's recommended to do next
-2. Once several items have been dragged the user would prioritize and sort the items in order of importance
-3. The user would use the rest of Redmine and work on the #1 item
-4. Once the #1 item is complete (or blocked) the user would continue and work on the #2 item
+The Redmine administrator can also edit other users' lists:  
+![stuff to do](stuff_to_do_3.png)
 
-If the user is an Administrator, they have the permission to edit other users' lists.  This allows them to act as the system Project Manager.
+The plugin can send email notifications when the number of recommended items for a user reaches a certain threshold value (by default, 1). To change this value, go to **Administration > Plugins**, and click **Configure**.  
+![stuff to do configure](stuff_to_do_configure.PNG)
 
-
-Description
-
-Справа на этой странице показан список (переведенных на меня) доступных задач
-http://pm.undev.cc/stuff_to_do
-
-Я им ежеденвно, ежечасно пользуюсь, но только сейчас понял, что в нем не удобно.
-Каждая новая приходящая задача попадает в список в любое его место. В начало, в середину, в конец.
-Я не могу быть уверен, что последняя пришедшая задача сверху. Сверху всегда задача с большим ID. То есть, та, которая позже создана.
-
-Гораздо удобнее было бы сортировать это поле по дате обновления задачи.
-Тогда последняя переведенная на меня задача автоматически будет в начале списка, а переведенная два месяца назад и оставленная в статусе on hold — в самом конце списка.
-
---- сортировка по дате работает, проверено
+You can also configure what data should be displayed as the list items on the **Stuff To Do** page and enable/disable the time grid.  
+![stuff to do](stuff_to_do_4.png)
 
 ## License
 
@@ -103,8 +87,3 @@ distributed under the License is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
-
-== Project help
-
-If you need help you can contact the maintainer at his email address (See CREDITS.txt) or create an issue in the Bug Tracker.  The bug tracker is located at  https://projects.littlestreamsoftware.com
-
