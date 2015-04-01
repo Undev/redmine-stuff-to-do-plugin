@@ -43,17 +43,19 @@ The plugin adds the **Stuff To Do** link to the top menu in Redmine.
 The **Stuff To Do** link leads to a page with three panes:    
 ![stuff to do](stuff_to_do_1.png)
 
-### What I'm doing now
+#### What I'm doing now
 
 This pane lists 5 items a user is supposed to be working on. These should be the most important issues assigned to the user. As the user closes an issue (by specifying the **Closed** status or archiving a project), the next item is automatically moved to the top of the list in this pane.
 
-### What's recommended to do next
+#### What's recommended to do next
 
 This pane lists extra issues used as overflow for the **What I'm doing now** pane.
 
-### What's available
+#### What's available
 
 This pane lists all the open issues assigned to the user or the projects visible to the user.
+
+#### Workflow
 
 The standard workflow for this plugin is as follows:  
 ![stuff to do](stuff_to_do_2.png)
@@ -65,6 +67,8 @@ The standard workflow for this plugin is as follows:
 
 The Redmine administrator can also edit other users' lists:  
 ![stuff to do](stuff_to_do_3.png)
+
+#### Configuration
 
 The plugin can send email notifications when the number of recommended items for a user reaches a certain threshold value (by default, 1). To change this value, go to **Administration > Plugins**, and click **Configure**.  
 ![stuff to do configure](stuff_to_do_configure.PNG)
