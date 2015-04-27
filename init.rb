@@ -30,7 +30,7 @@ Rails.configuration.to_prepare do
 end
 
 Redmine::Plugin.register :stuff_to_do_plugin do
-  name 'Stuff To Do Plugin'
+  name 'Stuff-To-Do Plugin'
   author 'Eric Davis, Undev'
   url 'https://github.com/Undev/redmine-stuff-to-do-plugin'
   author_url 'https://github.com/Undev'
