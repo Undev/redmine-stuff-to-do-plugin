@@ -1,5 +1,8 @@
 # Redmine Stuff To Do Plugin
 
+[![Build Status](https://travis-ci.org/Undev/stuff_to_do_plugin.png)](https://travis-ci.org/Undev/stuff_to_do_plugin)
+[![Code Climate](https://codeclimate.com/github/Undev/stuff_to_do_plugin.png)](https://codeclimate.com/github/Undev/stuff_to_do_plugin)
+
 This plugin allows Redmine users to prioritize tasks and arrange the assigned issues and projects in a specific order. It also allows administrators and managers to manage other users' workload.
 
 The initial author is [Eric Davis](https://github.com/edavis10).
@@ -28,11 +31,17 @@ This plugin provides a number of useful features for Redmine issue management:
       
             git clone https://github.com/Undev/redmine-stuff-to-do-plugin.git plugins/stuff_to_do_plugin
             
-2. This plugin requires a migration. Run the following command to upgrade your database (make a database backup before):  
+
+2. Update the Gemfile.lock file by running the following commands:  
+
+         rm Gemfile.lock  
+         bundle install
+
+3. This plugin requires a migration. Run the following command to upgrade your database (make a database backup before):  
 
         bundle exec rake redmine:plugins:migrate RAILS_ENV=production
             
-3. Restart Redmine.
+4. Restart Redmine.
 
 Now you should be able to see the plugin in **Administration > Plugins**.
 
@@ -75,6 +84,10 @@ The plugin can send email notifications when the number of recommended items for
 
 You can also configure what data should be displayed as the list items on the **Stuff To Do** page and enable/disable the time grid.  
 ![stuff to do](stuff_to_do_4.png)
+
+## Maintainers
+
+Danil Tashkinov, [github.com/nodecarter](https://github.com/nodecarter)
 
 ## License
 
