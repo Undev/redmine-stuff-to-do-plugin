@@ -1,6 +1,5 @@
 # Redmine Stuff-To-Do Plugin
 
-[![Build Status](https://travis-ci.org/Undev/redmine-stuff-to-do-plugin.png)](https://travis-ci.org/Undev/redmine-stuff-to-do-plugin)
 [![Code Climate](https://codeclimate.com/github/Undev/redmine-stuff-to-do-plugin.png)](https://codeclimate.com/github/Undev/redmine-stuff-to-do-plugin)
 
 This plugin allows Redmine users to prioritize tasks and arrange the assigned issues and projects in a specific order. It also allows administrators and managers to manage other users' workload.
